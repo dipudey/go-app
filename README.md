@@ -1,8 +1,8 @@
-# POS
+# GO APP
 
 ## Overview
 
-**POS** is a modular Go application designed with isolated internal modules, clean architecture, and scalable structure.  
+**GO APP** is a modular Go application designed with isolated internal modules, clean architecture, and scalable structure.  
 Each module contains its own routes, services, repositories, models, DTOs, and validators.
 
 The application uses a **single database connection** injected into modules, supports multiple DB drivers (Postgres, MySQL), and a minimal central router for module registration.

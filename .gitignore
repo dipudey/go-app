@@ -34,9 +34,6 @@ Thumbs.db
 dist/
 build/
 
-# Module cache
-/pkg/mod/
-
 # Test binary
 *.test
 
