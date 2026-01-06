@@ -1,0 +1,21 @@
+info:
+  contact: {}
+paths:
+  /api/ping:
+    get:
+      consumes:
+      - application/json
+      description: Returns "pong" to test API
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Ping the server
+      tags:
+      - Health
+swagger: "2.0"

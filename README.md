@@ -35,3 +35,52 @@ myapp/
 │   └── db.go # Database connection setup
 ```
 
+---
+
+## Swagger API Documentation
+
+This project uses [swaggo/swag](https://github.com/swaggo/swag) and [gin-swagger](https://github.com/swaggo/gin-swagger) for OpenAPI documentation.
+
+### How to Generate Swagger Docs
+
+1. Ensure your handler functions and main router file have proper Swagger annotations. Example:
+    ```go
+    // @title GO APP API
+    // @version 1.0
+    // @description This is a standard GO APP API server.
+    // @termsOfService http://swagger.io/terms/
+    // @contact.name API Support
+    // @contact.url http://www.swagger.io/support
+    // @contact.email support@swagger.io
+    // @license.name Apache 2.0
+    // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+    // @host localhost:8080
+    // @BasePath /
+    ```
+    And for endpoints:
+    ```go
+    // @Summary Ping the server
+    // @Description Returns "pong" to test API
+    // @Tags Health
+    // @Accept json
+    // @Produce json
+    // @Success 200 {object} map[string]string
+    // @Router /api/ping [get]
+    ```
+2. Run the following command to generate docs:
+    ```sh
+    $HOME/go/bin/swag init -g ./cmd/api/main.go -o ./docs
+    ```
+    - `-g ./cmd/api/main.go` points to your main entry file.
+    - `-o ./docs` outputs the generated Swagger files to the docs directory.
+
+### How to Access Swagger UI
+
+- Start the application.
+- Open your browser and go to: `http://localhost:8000/swagger/index.html`
+- All documented API endpoints will be listed and testable.
+
+### References
+- [swaggo/swag](https://github.com/swaggo/swag)
+- [gin-swagger](https://github.com/swaggo/gin-swagger)
+- [OpenAPI Specification](https://swagger.io/specification/)
