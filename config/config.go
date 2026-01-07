@@ -7,9 +7,10 @@ import (
 )
 
 type Config struct {
-	AppName  string `env:"APP_NAME" env-default:"MyApp"`
-	Server   ServerConfig
-	Database DatabaseConfig
+	AppName   string `env:"APP_NAME" env-default:"MyApp"`
+	Server    ServerConfig
+	Database  DatabaseConfig
+	JWTSecret string `env:"JWT_SECRET"`
 }
 
 type ServerConfig struct {

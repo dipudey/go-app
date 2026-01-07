@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/dipudey/go-app/internal/auth"
 	"github.com/dipudey/go-app/internal/router"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -30,11 +31,8 @@ func RunApplication() {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	ctx, _ := signal.NotifyContext(
-		context.Background(),
-		os.Interrupt,
-		syscall.SIGTERM,
-	)
+	//-- Set JWT Secret
+	auth.SetJWTSecret(cfg.JWTSecret)
 
 	// Connect Database
 	dbConnection, err := cfg.Database.ConnectDB()
@@ -53,6 +51,11 @@ func RunApplication() {
 
 	log.Printf("Starting %s server...", cfg.AppName)
 	log.Printf("Server running on http://%s:%d", cfg.Server.Host, cfg.Server.Port)
+	ctx, _ := signal.NotifyContext(
+		context.Background(),
+		os.Interrupt,
+		syscall.SIGTERM,
+	)
 	s := &http.Server{
 		Addr:           ":" + fmt.Sprintf("%d", cfg.Server.Port),
 		Handler:        GinRouter,
