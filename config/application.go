@@ -41,6 +41,8 @@ func RunApplication() {
 	if err != nil {
 		log.Fatalf("failed to connect database: %v", err)
 	}
+	// Run Migrations
+	RunMigrations(dbConnection)
 	db, err := dbConnection.DB()
 	if err != nil {
 		log.Fatalf("failed to get database instance: %v", err)
