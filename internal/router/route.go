@@ -2,6 +2,7 @@ package router
 
 import (
 	_ "github.com/dipudey/go-app/docs"
+	"github.com/dipudey/go-app/internal/user"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,13 +13,16 @@ func InitRoutes(db *gorm.DB) *gin.Engine {
 	//router := gin.Default()
 	router := gin.New()
 	router.Use(gin.Recovery())
-	//api := router.Group("/api")
+	api := router.Group("/api")
 
 	router.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello go app")
 	})
 
 	router.GET("/api/ping", PingHandler)
+
+	// Register user module routes
+	user.Register(api, db)
 
 	// Swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
