@@ -26,7 +26,8 @@ myapp/
 │ │ ├── model.go # User model definitions
 │ │ ├── dto.go # Request and response structures (DTOs)
 │ │ ├── validator.go # User-related validation logic
-│ │ └── module.go # Register(router, db)
+| | └── router.go # module route definitions
+│ │ └── module.go # Register(router, db) resolves dependencies and calls router
 │ ├── router/ # Central router
 │ │ └── router.go # Router initialization and module registration
 │── config/ # App configuration
