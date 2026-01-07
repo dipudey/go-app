@@ -1,3 +1,13 @@
+definitions:
+  user.Response:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -18,4 +28,19 @@ paths:
       summary: Ping the server
       tags:
       - Health
+  /api/users:
+    get:
+      description: Fetch all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.Response'
+            type: array
+      summary: Get all users
+      tags:
+      - Users List
 swagger: "2.0"
