@@ -9,6 +9,45 @@ The application uses a **single database connection** injected into modules, sup
 
 ---
 
+## Project Setup & Installation
+
+### Prerequisites
+- Go 1.18 or newer
+- MySQL or PostgreSQL database
+- [swag](https://github.com/swaggo/swag) for Swagger docs (install with `go install github.com/swaggo/swag/cmd/swag@latest`)
+
+### Clone the Repository
+```sh
+git clone https://github.com/dipudey/go-app.git
+cd go-app
+```
+
+### Install Dependencies
+```sh
+go mod tidy
+```
+
+### Configure Environment
+- Copy `.env.example` to `.env` and update DB credentials and other settings as needed.
+- Or edit `config/config.go` for direct config changes.
+
+### Run Database Migrations (if any)
+```sh
+go run config/migrate.go
+```
+
+### Generate Swagger Docs
+```sh
+$HOME/go/bin/swag init -g ./cmd/api/main.go -o ./docs
+```
+
+### Start the Application
+```sh
+go run cmd/api/main.go
+```
+
+---
+
 ## Folder Structure
 ```aiignore
 myapp/
@@ -81,7 +120,3 @@ This project uses [swaggo/swag](https://github.com/swaggo/swag) and [gin-swagger
 - Open your browser and go to: `http://localhost:8000/swagger/index.html`
 - All documented API endpoints will be listed and testable.
 
-### References
-- [swaggo/swag](https://github.com/swaggo/swag)
-- [gin-swagger](https://github.com/swaggo/gin-swagger)
-- [OpenAPI Specification](https://swagger.io/specification/)
