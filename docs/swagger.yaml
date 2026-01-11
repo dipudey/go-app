@@ -1,4 +1,32 @@
 definitions:
+  user.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  user.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  user.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
   user.Response:
     properties:
       email:
@@ -8,9 +36,40 @@ definitions:
       name:
         type: string
     type: object
+  user.TokenResponse:
+    properties:
+      token:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: Login Request
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.TokenResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/user.ErrorResponse'
+      summary: User login
+      tags:
+      - Users Auth
   /api/ping:
     get:
       consumes:
@@ -40,7 +99,31 @@ paths:
             items:
               $ref: '#/definitions/user.Response'
             type: array
+      security:
+      - ApiKeyAuth: []
       summary: Get all users
       tags:
       - Users List
+  /api/users/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the input payload
+      parameters:
+      - description: Create User Request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/user.Response'
+      summary: Create a new user
+      tags:
+      - Users Create
 swagger: "2.0"

@@ -4,6 +4,8 @@ import "gorm.io/gorm"
 
 type Repository interface {
 	FindAll() ([]User, error)
+	Create(user User) (User, error)
+	FindByEmail(email string) (User, error)
 }
 
 type repository struct {
@@ -18,4 +20,15 @@ func (r *repository) FindAll() ([]User, error) {
 	var users []User
 	err := r.db.Find(&users).Error
 	return users, err
+}
+
+func (r *repository) Create(user User) (User, error) {
+	err := r.db.Create(&user).Error
+	return user, err
+}
+
+func (r *repository) FindByEmail(email string) (User, error) {
+	var user User
+	err := r.db.Where("email = ?", email).First(&user).Error
+	return user, err
 }
